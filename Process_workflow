@@ -1,0 +1,40 @@
+1. Data Preparation
+
+2. Exploring the Contents of variables
+  📌 Countries
+
+  📌 Customers and products
+        Cancelling orders
+        StockCode
+        Basket price
+
+3. Insight on product categories
+        Product description
+        Defining product categories
+        Data encoding
+        Clusters of products
+        Characterizing the content of clusters
+
+4. Customer categories
+        Formating data
+        Grouping products
+        Time spliting of the dataset
+        Grouping orders
+        Creating customer categories
+        Data enconding
+        Creating categories
+
+5. Classifying customers
+        Support Vector Machine Classifier (SVC)
+        Confusion matrix
+        Leraning curves
+        Logistic regression
+        k-Nearest Neighbors
+        Decision Tree
+        Random Forest
+        AdaBoost
+        Gradient Boosting Classifier
+        
+6. Testing the predictions
+
+7. Conclusion
