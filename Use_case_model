@@ -1,0 +1,95 @@
+👉 Customer Segmentation
+
+Accurate customer segmentation allows marketers to engage with each customer in the most effective way.
+
+👉 What is Customer Segmentation?
+
+Customer segmentation is the practice of dividing a company’s customers into groups that reflect similarity among customers in each group. The goal of segmenting customers is to decide how to relate to customers in each segment in order to maximize the value of each customer to the business.
+
+👉 The Importance of Customer Segmentation
+
+Customer segmentation has the potential to allow marketers to address each customer in the most effective way. Using the large amount of data available on customers (and potential customers), a customer segmentation analysis allows marketers to identify discrete groups of customers with a high degree of accuracy based on demographic, behavioral and other indicators.
+
+Since the marketer’s goal is usually to maximize the value (revenue and/or profit) from each customer, it is critical to know in advance how any particular marketing action will influence the customer. Ideally, such “action-centric” customer segmentation will not focus on the short-term value of a marketing action, but rather the long-term customer lifetime value (CLV) impact that such a marketing action will have. Thus, it is necessary to group, or segment, customers according to their CLV.
+
+👉 CLV-Focused Customer Segmentation
+
+Of course, it is always easier to make assumptions and use “gut feelings” to define rules which will segment customers into logical groupings, e.g., customers who came from a particular source, who live in a particular location or who bought a particular product/service. However, these high-level categorizations will seldom lead to the desired results.
+
+It is obvious that some customers will spend more than others during their relationship with a company. The best customers will spend a lot for many years. Good customers will spend modestly over a long period of time, or will spend a lot over a short period of time. Others won’t spend too much and/or won’t stick around too long.
+
+The right approach to segmentation analysis is to segment customers into groups based on predictions regarding their total future value to the company, with the goal of addressing each group (or individual) in the way most likely to maximize that future, or lifetime, value.
+
+👉 Customer Segmentation Models
+
+Accurate customer segmentation involves tracking dynamic changes, and frequently updating new data. Although segmenting customers according to their CLV is the recommended approach, there are many types of customer segmentation models. Some of the more common types are segmentation via cluster analysis, RFM segmentation, and longevity. Some marketers might even combine one or more segmentation models in order to reach their goals.
+
+No matter the types of segmentation models marketers decide to use, they all require marketers to create groupings of customers to serve as a first step in segmenting the customer base. Usually this will result in marketers having a series of tiers for each type of segmentation model. Marketers can then mix different tiers across models to create more defined segments. For example, mixing the highest tier of customers based on an RFM model and combining it with a low longevity tier will result in marketers having a segment of highly active, newly acquired customers.
+
+Customer Segmentation and Machine Learning
+
+An additional approach to customer segmentation is leveraging machine learning algorithms to discover new segments. Different to marketer-designed segmentation models, as the ones described above, machine learning customer segmentation allows advanced algorithms to surface insights and groupings that marketers might find difficulty discovering on their own.
+
+Furthermore, marketers that create a feedback loop between the segmentation model and campaign results will have ever improving customer segments. In these cases, the machine learning model will be not only able to refine its definition of segments, but also be able to identify if a specific subset of the segment is outperforming the rest, optimizing marketing performance.
+
+
+👉 Customer segmentation procedures
+Customer segmentation, also called consumer segmentation or client segmentation, procedures include:
+
+1. Deciding what data will be collected and how it will be gathered
+2. Collecting data and integrating data from various sources
+3. Developing methods of data analysis for segmentation
+4. Establishing effective communication among relevant business units (such as marketing and customer service) about the segmentation
+5. Implementing applications to effectively deal with the data and respond to the information it provides.
+
+👉 Benefits of customer segmentation
+
+By enabling companies to target specific groups of customers, a customer segmentation model allows for the effective allocation of marketing resources and the maximization of cross- and up-selling opportunities. When a group of customers is sent personalized messages as part of a marketing mix that is designed around their needs, it's easier for companies to send those customers special offers meant to encourage them to buy more products. Customer segmentation can also improve customer service and assist in customer loyalty and retention. As a by-product of its personalized nature, marketing materials sent out using customer segmentation tend to be more valued and appreciated by the customer who receives them as opposed to impersonal brand messaging that doesn't acknowledge purchase history or any kind of customer relationship.
+
+Other benefits of customer segmentation include staying a step ahead of competitors in specific sections of the market and identifying new products that existing or potential customers could be interested in or improving products to meet customer expectations.
+
+
+👉 The Different flavors of Customer Segmentation
+
+A basic approach to segmentation relies on quantitative insights such as sales and conversation rates, limiting the perspective of customers to only representations of what they're like. A more advanced approach uses qualitative insights based on behavioral and transactional data, enabling organizations to have a clear idea of who customers are.
+
+1. QUALITATIVE INSIGHTS   (BASIC)
+TYPE : Persona-based
+WHAT IS IT? : An approach that blends data-driven segments with qualitatively developed representations of customers
+WHAT IS IT FOR? : Describing
+HOW DO YOU DO IT? : Conduct interviews with customers to determine archetypes 
+WHEN SHOULD YOU USE IT? : To customize for user types even if you have limited data and analytics resources 
+
+2. QUANTITATIVE INSIGHTS  (ADVANCED)
+TYPE : Behavior-based
+WHAT IS IT? : An approach that divides customers into groups based on behavioral, transactional and other data resources
+WHAT IS IT FOR? : Grouping
+HOW DO YOU DO IT? : Apply a Clustering Algorithm (i.e. K-means)
+WHEN SHOULD YOU USE IT? : To discover new, unknown segments in large amounts of data
+
+3. QUANTITATIVE INSIGHTS  (ADVANCED)
+TYPE: Predictive
+WHAT IS IT? :  An approach that parses customers based on their propensities to make specific actions
+WHAT IS IT FOR? :  Predicting
+HOW DO YOU DO IT? :  Apply classification or Logistic regression
+WHEN SHOULD YOU USE IT? :  To identify which customers are likely to click, buy, churn, etc.
+
+👉 Importance of customer segmentation
+
+Not only do companies strive to divide their customers into measurable segments according to their needs, behaviors or demographics but they also aim to determine the profit potential of each segment by analyzing its revenue and cost impacts. Value-based segmentation evaluates groups of customers in terms of the revenue they generate and the costs of establishing and maintaining relationships with them. It also helps companies determine which segments are the most and least profitable so that they can adjust their marketing budgets accordingly.
+
+Customer segmentation can have a great effect on customer management in that, by dividing customers into different groups that share similar needs, the company can market to each group differently and focus on what each kind of customer needs at any given moment. Large or small, niche customer segments can be targeted depending on the company's resources or needs
+
+In Business-to-Business marketing, companies are concerned with decision-makers' job titles, the industry sector, whether the company is public or private, its size, location, buying patterns and their technology at their disposal, for example.
+
+In Business-to-customer marketing, companies are concerned with particular customers' profiles, attitudes and lifestyles. B2C companies may also be concerned with geographic location. B2C companies who segment customers based on their geographic location can tailor offers based on regional events and preferences. B2C companies can also customize offers based on the predominant languages spoken in each region.
+
+Approaches to Business-to-Business customer segmentation include vertical or horizontal alignments. In vertical segmentation, companies select certain industries or job titles that would likely find their products appealing and then focus marketing efforts on those segments that they feel are most ready to buy. The benefit of vertical segmentation is that companies can offer services that are fine-tuned to particular industries. The needs of the financial services industry are different from those of the healthcare industry. If each segment was offered services customized to that industry, adoption and satisfaction might increase.
+
+In horizontal segmentation, companies simply focus on one job title across a wide range of industries and organizations. The benefit of horizontal segmentation is a stronger focus on the needs of particular job titles or job roles. For example, a focus on Chief Financial Officers (CFO) can create product collateral, website messaging and email newsletters specifically tailored to that role.
+
+👉 Customer segmentation vs. market segmentation
+
+Companies can use marketing automation software to define and create customer segments. The customer segments can be based on demographic data, psychographic data and activity-based data such as actions that users took on a website. Companies use marketing automation software to configure, schedule and execute campaigns for particular customer segments.
+
+Customer segmentation is different from market segmentation. An example of market segmentation is grouping customers by the products or services they purchase. A company may perform market segmentation based on distinct lines of business such as software, professional services and training. The company can then allocate resources to each market segment and employ separate marketing and advertising activities to each.
