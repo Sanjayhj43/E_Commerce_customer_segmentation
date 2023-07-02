@@ -1,0 +1,441 @@
+# %% [markdown]
+# **E-commerce Customer Segmentation**
+# Problem Statement
+# Given the e-commerce data, use k-means clustering algorithm to cluster customers with similar interest.
+
+# %%
+#importing libraries
+import pandas as pd
+import numpy as np
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import seaborn as sns
+import datetime, nltk, warnings
+
+# %%
+# Load and read the dataset
+data = pd.read_csv("C:\\Users\\sanja\\Downloads\\E_commerce_data.csv",encoding="ISO-8859-1")
+data
+
+# %%
+# Understanding Data
+df = data.copy()
+df.info()
+
+# %%
+df.describe()
+
+# %% [markdown]
+# **Data Cleaning**
+
+# %%
+# Checking For Duplicates
+df[df.duplicated()]
+
+# %%
+# Checking Null Values
+df.isna().sum()
+
+# %%
+# Filling NaN values with mode
+df['Description'] = df['Description'].fillna(df['Description'].mode()[0])
+df['CustomerID'] = df['CustomerID'].fillna(df['CustomerID'].mode()[0])
+
+# %%
+# Checking Null Values
+df.isna().sum()
+
+# %% [markdown]
+# **Data Visualization**
+
+# %%
+df.Country.value_counts().head()
+
+# %%
+# Plot to check the count of customers except united kingdom
+# Filter the DataFrame to exclude United Kingdom
+df_filtered = df[df['Country'] != 'United Kingdom']
+
+# Plot the countplot using the filtered DataFrame
+ax = sns.countplot(data=df_filtered, y='Country')
+
+# Annotate the count values on the countplot
+for p in ax.patches:
+    ax.annotate(format(p.get_width(), '.0f'), (p.get_width() + 10, p.get_y() + p.get_height() / 2), ha = 'left', va = 'center')
+
+# Set the labels and title of the plot
+ax.set_xlabel('Count')
+ax.set_ylabel('Country')
+ax.set_title('Count of Orders by Country (excluding United Kingdom)')
+
+# Show the plot
+plt.show()
+
+
+# %% [markdown]
+# **Checking for duplicate entries and deleting them**
+
+# %%
+df['Country'].duplicated().value_counts()
+
+# %%
+df['InvoiceNo'].duplicated().value_counts()
+
+# %%
+df.duplicated().sum()
+
+# %%
+df.drop_duplicates(inplace = True)
+df.shape
+
+# %% [markdown]
+# **Doing NLP in the description column**
+
+# %%
+#removing spaces & number -converting to small letters
+df["Desc_new"]=df["Description"].str.replace("[^a-zA-Z]","  ")
+df["Desc_new"]=df["Desc_new"].astype(str)
+df["Desc_new"]
+
+# %%
+df["Desc_new"]=df["Desc_new"].apply(lambda row:" ".join([word for word in row.split() if len(word)>2]))
+df["Desc_new"]
+
+# %%
+df["Desc_new"]=[review.lower() for review in df["Desc_new"]]
+df["Desc_new"]
+
+# %% [markdown]
+# **Removing Stop words ,lemmatising**
+
+# %%
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+from nltk import word_tokenize
+stopwrds =stopwords.words('english')
+
+#Making cutom list of stop words to be removed
+addwrds=[]
+
+#Adding to thelist of words
+stopwrds.extend(addwrds)
+
+#Function to remove stop words
+def remove_stopwrds(rev):
+  review_tokenized=word_tokenize(rev)
+  rev_new=" ".join([i for i in review_tokenized if i not in stopwrds])
+  return rev_new
+
+
+#Removing Stop words
+df['Desc_new']=[remove_stopwrds(r) for r in df['Desc_new']]
+
+
+# %%
+#Begin Lemmatisation
+nltk.download("wordnet")
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.corpus import wordnet
+nltk.download('averaged_perceptron_tagger')
+
+#function to convert nltk tag to wordnet tag
+lemmatizer=WordNetLemmatizer()
+
+def nltk_tag_to_wordnet_tag(nltk_tag):
+  if nltk_tag.startwith('J'):
+    return wordnet.ADJ
+  elif nltk_tag.startwith('V'):
+    return wordnet.VERB
+  elif nltk_tag.startwith('N'):
+    return wordnet.NOUN
+  elif nltk_tag.startwith('R'):
+    return wordnet.ADJ
+  else:
+    return None
+
+
+def lemmatize_sentence(sentence):
+  nltk_tagged = nltk.pos_tag(nltk.word_-word_tokenize(sentence))
+  wordnet_tagged=map(lambda x:(x[0],nltk_tag_to_wordnet_tag(x[1])),nltk_tagged)
+
+  lemmatized_sentence = []
+  for word,tag in wordnet_tagged:
+    if tag is None:
+      lemmatized_sentence.append(word)
+    else:
+     lemmatized_sentence.append(lemmatizer.lemmatize(word,tag))
+  return " ".join(lemmatized_sentence)
+
+
+  df["Desc_new"]=df['Desc_new'].apply(lambda x:lemmatize_sentence(x))
+
+# %%
+df.head()
+
+# %%
+#Removing duplicated descriptions
+df2=df["Desc_new"].drop_duplicates()
+df2=pd.DataFrame(df2)
+df2.head()
+
+# %%
+from sklearn.feature_extraction.text import CountVectorizer
+import pandas as pd
+
+count_vectorizer = CountVectorizer(binary=False)
+bag_of_words = count_vectorizer.fit_transform(df2["Desc_new"])
+
+feature_names = list(count_vectorizer.vocabulary_.keys())
+df3 = pd.DataFrame(bag_of_words.toarray(), columns=feature_names)
+
+df3.head()
+
+# %%
+x=bag_of_words.toarray()
+x
+
+# %% [markdown]
+# **Using K-means clustering**
+
+# %%
+from sklearn.cluster import KMeans
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+
+%matplotlib inline
+plt.style.use("fivethirtyeight")
+
+from warnings import filterwarnings
+filterwarnings("ignore")
+
+# %%
+#To find the optimal value of K we are use Elbow plot ,where k is the hyperparameter.
+
+list_k=list(range(1,25))
+inertias = []
+for k in list_k:
+    km = KMeans(n_clusters=k)
+    km.fit(x)
+    inertias.append(km.inertia_)
+
+# %%
+# Make elbow plot
+plt.figure(figsize = (5, 5))
+plt.title('Elbow plot')
+plt.plot(list_k,inertias,'-o')
+plt.xlabel('Clusters of *k*')
+plt.ylabel('Sum of squared error')
+
+# %% [markdown]
+# Here we used Kmeans to find the optimal vlaue of K Since there is no optimal value that can be infered here with the elbow plot we will do PCA.(Principal Component Analysis)
+
+# %%
+sc=StandardScaler()   #performing standarisation  
+X_scaled= sc.fit_transform(x)
+
+# %%
+from sklearn.decomposition import PCA
+components= None
+pca=PCA(n_components = components)    #components is the number of reduced relevant columns (hyperparameter) 
+pca.fit(x)  
+
+# %%
+#prints the  variance
+print("Variances(Percentage)")
+print(pca.explained_variance_ratio_*100)
+
+
+# %%
+print ("cumulative variance (Percentage)")
+print((pca.explained_variance_ratio_.cumsum() * 100)[:100])
+
+# %%
+#plot the cumulative varience
+components=len(pca.explained_variance_ratio_)\
+  if components  is None else components
+plt.plot(range(1,components+1),
+         np.cumsum(pca.explained_variance_ratio_*100))
+
+plt.xlabel("Number of components")
+plt.ylabel("Explained variance(%)")
+
+
+# %%
+#From the above graph we can see that it takes 1500 components to reach flat curve(100% varience).
+# choosing around  90% of variations:
+from sklearn.decomposition import PCA
+
+pca = PCA(n_components = 0.90)
+pca.fit(x)
+
+# optimum no:of components
+components = len(pca.explained_variance_ratio_)
+print(f'Number of components: {components}')
+
+# Make the scree plot
+plt.plot(range(1, components + 1), np.cumsum(pca.explained_variance_ratio_ * 100))
+plt.xlabel("Number of components")
+plt.ylabel("Explained variance (%)")
+
+# %% [markdown]
+# Applying PCA: PCA helps in lower dimension of data,while keeping all original variables in the model.
+
+# %%
+from sklearn.decomposition import PCA
+
+pca=PCA(638)
+Principal_Component_Analysis=pca.fit_transform(x)
+Principal_Component_Analysis.shape
+
+# %%
+#Elbow plot
+#We make a plot btwn K value and inertia
+
+list_k=list(range(1,20))
+inertias = []
+for k in list_k:
+    km = KMeans(n_clusters=k)
+    km.fit(x)
+    inertias.append(km.inertia_)
+
+# %%
+# Make elbow plot
+plt.figure(figsize = (5, 5))
+plt.title('Elbow plot')
+plt.plot(list_k,inertias,'-o')
+plt.xlabel('Clusters of *k*')
+plt.ylabel('Sum of squared error')
+
+# %%
+#km modelling
+km=KMeans(n_clusters=12)         #applying k
+km.fit(Principal_Component_Analysis )   #fit the data
+
+centroids = km.cluster_centers_
+
+# %%
+#shows which group each datapoint belongs to
+km.labels_
+
+# %%
+#Predicts the labels of cluster
+label=km.fit_predict(Principal_Component_Analysis)
+print(label)
+
+# %%
+#Getting the centroids 
+centroids=km.cluster_centers_
+llabels=np.unique(label)
+
+#plotting
+
+plt.figure(figsize=(10,6))
+for i in llabels:
+  plt.scatter(Principal_Component_Analysis[label == i,0],Principal_Component_Analysis[label == i,1],label =i)
+plt.scatter(centroids[:,0],centroids[:,1],s=100,c="k",label="centroids")
+plt.legend()
+plt.show()
+
+# %% [markdown]
+# **Concatenating the label,NLP description into original dataframe**
+
+# %%
+df5=pd.DataFrame(km.labels_)
+print(df5.shape)
+df5.head()
+
+# %%
+df2=df2.reset_index(drop=True)
+df2.head()
+
+# %%
+df6=df2.join(df5)
+df6.rename(columns={0:'Product Code'},inplace=True)
+df6.head(3)
+
+# %%
+df8=pd.merge(df,df6,how="left",on="Desc_new")
+df8.head()
+
+# %%
+df9 = pd.get_dummies(df8,columns=["Product Code"])     ##product code one hot encoding
+df9.head()  
+
+# %%
+df10 = df9.copy()
+
+# %%
+df10 = df10.drop(["InvoiceNo","StockCode","Description","InvoiceDate","Country","Desc_new"],axis=1)
+df10.head()
+
+# %%
+#Grouping the Customers based on CustomerID:
+df11 = df10.groupby(['CustomerID']).mean()
+df11.head()
+
+# %%
+df11.describe()
+
+# %%
+y = df11.to_numpy()
+y
+
+# %%
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+sc = MinMaxScaler()
+y_scaled = sc.fit_transform(y)
+
+# %%
+list_k=list(range(1,15))
+inertias = []
+for k in list_k:
+    km = KMeans(n_clusters=k)
+    km.fit(y_scaled)
+    inertias.append(km.inertia_)
+
+# %%
+plt.figure(figsize = (5, 5))
+plt.title('Elbow plot')
+plt.plot(list_k,inertias,'-o')
+plt.xlabel('Clusters of *k*')
+plt.ylabel('Sum of squared error')
+
+# %% [markdown]
+# From Elbow plot we can say that the optimal K value is at 4,thus the customers can be clusterd into 4 clusters based on their similarities
+
+# %%
+km = KMeans(n_clusters=4)     # applying k = 4
+km.fit(y_scaled)          # fit the data 
+
+centroids = km.cluster_centers_   # final centroid points
+
+# print("centroids: ",centroids)
+print("inertia: ",km.inertia_)  
+
+# %%
+km.labels_ 
+
+# %%
+label = km.fit_predict(y_scaled)  
+print(label)
+
+# %% [markdown]
+# **Visualizing the customer clusters:**
+
+# %%
+
+# Getting the Centroids and Cluster labels
+centroids = km.cluster_centers_
+labels = np.unique(label)
+
+#  plotting
+plt.figure(figsize=(5, 5)) 
+for i in labels:
+    plt.scatter(y_scaled[label == i , 0] , y_scaled[label == i , 1] , label = i)
+plt.scatter(centroids[:,0] , centroids[:,1] ,  c="k", s=150, label="centroids")
+plt.legend()
+plt.show()
+
+
