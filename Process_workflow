@@ -1,40 +1,39 @@
-1. Data Preparation
+ workflow
 
-2. Exploring the Contents of variables
-  📌 Countries
+📌 Importing Libraries
 
-  📌 Customers and products
-        Cancelling orders
-        StockCode
-        Basket price
+import pandas as pd
+import numpy as np
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import seaborn as sns
+import datetime, nltk, warnings
 
-3. Insight on product categories
-        Product description
-        Defining product categories
-        Data encoding
-        Clusters of products
-        Characterizing the content of clusters
+📌 # Checking For Duplicates
+df[df.duplicated()]
 
-4. Customer categories
-        Formating data
-        Grouping products
-        Time spliting of the dataset
-        Grouping orders
-        Creating customer categories
-        Data enconding
-        Creating categories
+📌 # Checking Null Values
+df.isna().sum()
 
-5. Classifying customers
-        Support Vector Machine Classifier (SVC)
-        Confusion matrix
-        Leraning curves
-        Logistic regression
-        k-Nearest Neighbors
-        Decision Tree
-        Random Forest
-        AdaBoost
-        Gradient Boosting Classifier
-        
-6. Testing the predictions
+📌 # Filling NaN values with mode
+df['Description'] = df['Description'].fillna(df['Description'].mode()[0])
+df['CustomerID'] = df['CustomerID'].fillna(df['CustomerID'].mode()[0])
 
-7. Conclusion
+📌 Data Visualization
+Plot to check the count of customers except united kingdom
+
+📌 Doing NLP in the description column
+
+📌 Removing Stop words ,lemmatising
+
+📌 Using K-means clustering
+
+📌 Applying PCA: PCA helps in lower dimension of data,while keeping all original variables in the model.
+
+📌 km modelling
+
+📌 Getting the centroids
+
+📌 Concatenating the label,NLP description into original dataframe
+
+📌 Visualizing the customer clusters
